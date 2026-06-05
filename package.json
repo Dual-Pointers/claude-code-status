@@ -1,0 +1,108 @@
+{
+	"name": "claude-code-status",
+	"displayName": "Claude Code Status",
+	"description": "Real-time Claude Code session stats in the VS Code status bar: token usage, context window fill, cache hits, turns, duration, and more.",
+	"version": "0.1.1",
+	"publisher": "daimaocai",
+	"license": "MIT",
+	"engines": {
+		"vscode": "^1.94.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"keywords": [
+		"claude",
+		"claude-code",
+		"status",
+		"usage",
+		"tokens"
+	],
+	"activationEvents": [
+		"*"
+	],
+	"main": "./extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "claudeCodeStatus.showDetail",
+				"title": "Claude Code Status: Show Session Detail"
+			},
+			{
+				"command": "claudeCodeStatus.refresh",
+				"title": "Claude Code Status: Refresh"
+			},
+			{
+				"command": "claudeCodeStatus.toggleDisplay",
+				"title": "Claude Code Status: Toggle Display Mode"
+			}
+		],
+		"configuration": {
+			"title": "Claude Code Status",
+			"properties": {
+				"claudeCodeStatus.enabled": {
+					"type": "boolean",
+					"default": true,
+					"description": "Enable or disable the Claude Code Status display."
+				},
+				"claudeCodeStatus.refreshInterval": {
+					"type": "number",
+					"default": 2,
+					"minimum": 2,
+					"maximum": 30,
+					"description": "Refresh interval in seconds for updating stats."
+				},
+				"claudeCodeStatus.displayMode": {
+					"type": "string",
+					"enum": [
+						"compact",
+						"detailed"
+					],
+					"default": "compact",
+					"description": "Display mode: compact (6 separate items) or detailed (verbose labels)."
+				},
+				"claudeCodeStatus.showModel": {
+					"type": "boolean",
+					"default": true,
+					"description": "Show model name."
+				},
+				"claudeCodeStatus.showTokens": {
+					"type": "boolean",
+					"default": true,
+					"description": "Show token usage / context window fill."
+				},
+				"claudeCodeStatus.showCache": {
+					"type": "boolean",
+					"default": true,
+					"description": "Show cache hit ratio."
+				},
+				"claudeCodeStatus.showTurns": {
+					"type": "boolean",
+					"default": true,
+					"description": "Show conversation turn count."
+				},
+				"claudeCodeStatus.showDuration": {
+					"type": "boolean",
+					"default": true,
+					"description": "Show session duration."
+				},
+				"claudeCodeStatus.sessionsDir": {
+					"type": "string",
+					"default": "",
+					"description": "Override path to Claude Code sessions directory. Leave empty for auto-detection (~/.claude/sessions/)."
+				},
+				"claudeCodeStatus.projectsDir": {
+					"type": "string",
+					"default": "",
+					"description": "Override path to Claude Code projects directory. Leave empty for auto-detection (~/.claude/projects/)."
+				}
+			}
+		}
+	},
+	"changelog": "./CHANGELOG.md",
+	"__metadata": {
+		"installedTimestamp": 1780552140307,
+		"targetPlatform": "undefined",
+		"size": 35480
+	}
+}
