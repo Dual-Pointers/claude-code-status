@@ -2,6 +2,7 @@
 
 VS Code status bar extension that displays real-time Claude Code session statistics — token usage, context window fill, cache hits, turn count, session duration, and conversation status.
 
+![screenshot](display.png)
 
 ## What you see in the status bar
 
