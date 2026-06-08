@@ -10,7 +10,26 @@ const EXT_ID = 'claude-code-status';
 const HOME = os.homedir();
 const DEFAULT_SESSIONS_DIR = path.join(HOME, '.claude', 'sessions');
 const DEFAULT_PROJECTS_DIR = path.join(HOME, '.claude', 'projects');
+const DEFAULT_SETTINGS_FILE = path.join(HOME, '.claude', 'settings.json');
 const DEBUG_LOG = path.join(HOME, '.claude', 'hud-debug.log');
+
+/**
+ * Read the configured model from ~/.claude/settings.json (env.ANTHROPIC_MODEL).
+ * This is what claude-switch writes when switching profiles, so the status bar
+ * follows profile switches immediately (within one refresh tick).
+ * Returns null if not set or unreadable.
+ */
+function readConfiguredModel(settingsFile) {
+  try {
+    if (!fs.existsSync(settingsFile)) return null;
+    const data = JSON.parse(fs.readFileSync(settingsFile, 'utf-8'));
+    const env = data && typeof data.env === 'object' ? data.env : null;
+    if (env && typeof env.ANTHROPIC_MODEL === 'string' && env.ANTHROPIC_MODEL.trim()) {
+      return env.ANTHROPIC_MODEL.trim();
+    }
+  } catch { /* ignore */ }
+  return null;
+}
 
 /** Write a debug message to file so we can verify the extension runs. */
 function debugLog(msg) {
@@ -413,8 +432,14 @@ class ClaudeHUD {
         inputTokens: 0, outputTokens: 0, cacheReadTokens: 0, cacheCreateTokens: 0, turns: 0, model: null, lastTimestamp: null
       };
 
-      // Fallback model: from env
-      if (!stats.model) {
+      // Model: prefer the configured model from ~/.claude/settings.json
+      // (this is what claude-switch writes, so we follow profile switches
+      // immediately). Fall back to the transcript's recorded model, then env.
+      const settingsFile = config.get('settingsFile') || DEFAULT_SETTINGS_FILE;
+      const configuredModel = readConfiguredModel(settingsFile);
+      if (configuredModel) {
+        stats.model = configuredModel;
+      } else if (!stats.model) {
         stats.model = process.env.ANTHROPIC_MODEL || 'unknown';
       }
 

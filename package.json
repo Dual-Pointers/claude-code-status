@@ -2,7 +2,7 @@
 	"name": "claude-code-status",
 	"displayName": "Claude Code Status",
 	"description": "Real-time Claude Code session stats in the VS Code status bar: token usage, context window fill, cache hits, turns, duration, and more.",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"publisher": "daimaocai",
 	"license": "MIT",
 	"engines": {
@@ -95,14 +95,19 @@
 					"type": "string",
 					"default": "",
 					"description": "Override path to Claude Code projects directory. Leave empty for auto-detection (~/.claude/projects/)."
+				},
+				"claudeCodeStatus.settingsFile": {
+					"type": "string",
+					"default": "",
+					"description": "Override path to Claude Code settings.json (used to read the configured model, following claude-switch). Leave empty for auto-detection (~/.claude/settings.json)."
 				}
 			}
 		}
 	},
 	"changelog": "./CHANGELOG.md",
 	"__metadata": {
-		"installedTimestamp": 1780552140307,
+		"installedTimestamp": 1780916324121,
 		"targetPlatform": "undefined",
-		"size": 35480
+		"size": 37423
 	}
 }

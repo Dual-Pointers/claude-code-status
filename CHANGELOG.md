@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2] - 2026-06-08
+
+### Fixed
+- Model name now reads from `~/.claude/settings.json` (`env.ANTHROPIC_MODEL`) — the file claude-switch writes — so the status bar follows profile switches immediately, instead of showing the model recorded in the running session's transcript
+
+### Added
+- `claudeCodeStatus.settingsFile` setting to override the settings.json path
+
 ## [0.1.1] - 2026-06-04
 
 ### Changed
